@@ -2,10 +2,30 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-  @apply bg-gray-50 text-gray-900;
+@layer base {
+  body {
+    background-color: #F5F0EB;
+    color: #1A1A1A;
+    font-family: 'Inter', system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    color: #1A1A1A;
+    font-weight: 700;
+  }
+
+  ::selection {
+    background-color: #C45C26;
+    color: #FFFFFF;
+  }
 }
 
-h1, h2, h3, h4, h5, h6 {
-  @apply text-gray-900;
+@layer utilities {
+  .text-brand-cta { color: #C45C26; }
+  .bg-brand-cta { background-color: #C45C26; }
+  .bg-brand-bg { background-color: #F5F0EB; }
+  .text-brand-muted { color: #6B6B6B; }
+  .border-brand-cta { border-color: #C45C26; }
 }

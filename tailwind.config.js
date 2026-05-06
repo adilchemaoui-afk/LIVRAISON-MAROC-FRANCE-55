@@ -8,8 +8,19 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        primary: '#1e40af',
-        accent: '#f97316',
+        brand: {
+          bg: '#F5F0EB',
+          cta: '#C45C26',
+          text: '#1A1A1A',
+          muted: '#6B6B6B',
+          white: '#FFFFFF',
+        },
+        // Legacy aliases for backward compat
+        primary: '#C45C26',
+        accent: '#C45C26',
+      },
+      fontFamily: {
+        sans: ['Inter', 'system-ui', 'sans-serif'],
       },
     },
   },
