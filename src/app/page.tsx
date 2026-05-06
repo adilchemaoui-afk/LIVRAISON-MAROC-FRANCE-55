@@ -1,6 +1,5 @@
 'use client';
 
-import Image from 'next/image';
 import Link from 'next/link';
 import {
   Package,
@@ -28,134 +27,80 @@ import {
 import { useState } from 'react';
 
 /* ================================================================
-   HERO ILLUSTRATION — composé de plusieurs éléments visuels
+   IMAGES — utilisation de balises img standard pour éviter
+   les problèmes de chargement sur Vercel
    ================================================================ */
-function HeroIllustration() {
-  return (
-    <div className="relative w-full max-w-lg mx-auto lg:mx-0">
-      {/* Fond dégradé chaud */}
-      <div className="absolute inset-0 bg-gradient-to-br from-[#E8D5C4] via-[#F5E6D3] to-[#FFF8F0] rounded-3xl transform rotate-2" />
-      
-      {/* Mosquée Hassan II — image principale */}
-      <div className="relative z-10 rounded-2xl overflow-hidden shadow-2xl border-4 border-white/50">
-        <Image
-          src="https://images.unsplash.com/photo-1539020140153-e479b8c22e70?w=800&h=600&fit=crop&q=80"
-          alt="Mosquée Hassan II à Casablanca"
-          width={600}
-          height={450}
-          className="object-cover w-full"
-          priority
-        />
-        {/* Overlay légèrement doré */}
-        <div className="absolute inset-0 bg-gradient-to-t from-[#C45C26]/20 to-transparent" />
-      </div>
-
-      {/* Badge flottant : Colis livrés */}
-      <div className="absolute -bottom-4 -left-4 z-20 bg-white rounded-xl shadow-lg px-4 py-3 flex items-center space-x-3 border border-[#E5DDD4]">
-        <div className="w-10 h-10 bg-[#C45C26]/10 rounded-full flex items-center justify-center">
-          <Package className="w-5 h-5 text-[#C45C26]" />
-        </div>
-        <div>
-          <p className="text-[#1A1A1A] font-bold text-sm">10 000+</p>
-          <p className="text-[#6B6B6B] text-xs">Colis livrés</p>
-        </div>
-      </div>
-
-      {/* Badge flottant : Note */}
-      <div className="absolute -top-3 -right-3 z-20 bg-white rounded-xl shadow-lg px-4 py-3 flex items-center space-x-2 border border-[#E5DDD4]">
-        <div className="flex">
-          {[1,2,3,4,5].map((i) => (
-            <Star key={i} className="w-4 h-4 text-amber-400 fill-amber-400" />
-          ))}
-        </div>
-        <div>
-          <p className="text-[#1A1A1A] font-bold text-sm">4.8/5</p>
-          <p className="text-[#6B6B6B] text-xs">Note moyenne</p>
-        </div>
-      </div>
-    </div>
-  );
-}
+const IMG_MOSQUEE = 'https://images.unsplash.com/photo-1539020140153-e479b8c22e70?w=800&h=600&fit=crop&q=80';
+const IMG_LIVRAISON = 'https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=600&h=450&fit=crop&q=80';
 
 /* ================================================================
-   CARTE DU MAROC — SVG stylisé sans délimitation régionale
+   CARTE DU MAROC — SVG responsive et stylisé
    ================================================================ */
 function MarocMap() {
   const villes = [
-    { name: 'Tanger', x: 115, y: 35, zone: 'nord' },
-    { name: 'Tétouan', x: 105, y: 42, zone: 'nord' },
-    { name: 'Rabat', x: 128, y: 68, zone: 'nord' },
-    { name: 'Casablanca', x: 120, y: 82, zone: 'nord' },
-    { name: 'Fès', x: 155, y: 58, zone: 'centre' },
-    { name: 'Marrakech', x: 105, y: 112, zone: 'centre' },
-    { name: 'Oujda', x: 195, y: 55, zone: 'est' },
-    { name: 'Agadir', x: 75, y: 145, zone: 'sud' },
-    { name: 'Ouarzazate', x: 125, y: 135, zone: 'sud' },
-    { name: 'Essaouira', x: 88, y: 118, zone: 'sud' },
-    { name: 'Kenitra', x: 120, y: 60, zone: 'nord' },
-    { name: 'Safi', x: 95, y: 100, zone: 'centre' },
+    { name: 'Tanger', x: 48, y: 14 },
+    { name: 'Tétouan', x: 44, y: 18 },
+    { name: 'Rabat', x: 54, y: 28 },
+    { name: 'Kenitra', x: 50, y: 24 },
+    { name: 'Casablanca', x: 50, y: 34 },
+    { name: 'Fès', x: 66, y: 24 },
+    { name: 'Oujda', x: 82, y: 22 },
+    { name: 'Marrakech', x: 44, y: 46 },
+    { name: 'Safi', x: 40, y: 42 },
+    { name: 'Essaouira', x: 36, y: 48 },
+    { name: 'Agadir', x: 30, y: 58 },
+    { name: 'Ouarzazate', x: 52, y: 56 },
   ];
 
   return (
-    <div className="relative w-full max-w-2xl mx-auto">
-      <svg viewBox="0 0 220 180" className="w-full h-auto drop-shadow-lg">
+    <div className="relative w-full max-w-3xl mx-auto px-4">
+      <svg viewBox="0 0 100 70" className="w-full h-auto" style={{ maxHeight: '500px' }}>
         {/* Fond océan */}
-        <rect width="220" height="180" fill="#E8F0F8" rx="12" />
+        <rect width="100" height="70" fill="#E8F0F8" rx="4" />
         
-        {/* Silhouette du Maroc — contour simple sans délimitation interne */}
+        {/* Silhouette Maroc — contour fluide sans délimitation interne */}
         <path
-          d="M 60 25 
-             C 80 20, 100 15, 120 18 
-             C 140 20, 160 25, 175 30 
-             C 190 35, 200 45, 205 55 
-             C 210 65, 208 75, 200 85 
-             C 195 95, 190 105, 185 115 
-             C 180 125, 175 135, 168 145 
-             C 160 155, 150 162, 140 168 
-             C 130 172, 120 175, 110 175 
-             C 100 175, 90 172, 82 168 
-             C 75 165, 68 160, 62 152 
-             C 55 145, 50 138, 48 130 
-             C 45 122, 42 115, 40 105 
-             C 38 95, 36 85, 35 75 
-             C 34 65, 35 55, 38 48 
-             C 42 40, 48 32, 60 25 Z"
-          fill="#C45C26"
-          stroke="#A64A1D"
-          strokeWidth="1.5"
-          opacity="0.85"
+          d="M 25 10 
+             C 32 8, 38 7, 44 8 
+             C 50 9, 56 10, 62 11 
+             C 68 12, 74 14, 80 16 
+             C 85 18, 90 22, 92 26 
+             C 94 30, 93 34, 90 38 
+             C 87 42, 84 46, 80 50 
+             C 76 54, 72 58, 68 62 
+             C 64 65, 58 67, 52 68 
+             C 46 69, 40 68, 34 66 
+             C 28 64, 22 60, 18 55 
+             C 14 50, 11 45, 9 40 
+             C 7 35, 6 30, 6 25 
+             C 6 20, 8 16, 12 14 
+             C 16 12, 20 11, 25 10 Z"
+          fill="#D4734A"
+          stroke="#B85C36"
+          strokeWidth="0.8"
         />
         
-        {/* Texture subtile — points/zellige stylisés */}
-        <pattern id="zellige" x="0" y="0" width="8" height="8" patternUnits="userSpaceOnUse">
-          <circle cx="4" cy="4" r="1" fill="#A64A1D" opacity="0.15" />
+        {/* Texture subtile — zellige */}
+        <pattern id="zellige" x="0" y="0" width="3" height="3" patternUnits="userSpaceOnUse">
+          <circle cx="1.5" cy="1.5" r="0.4" fill="#B85C36" opacity="0.2" />
         </pattern>
         <path
-          d="M 60 25 C 80 20, 100 15, 120 18 C 140 20, 160 25, 175 30 C 190 35, 200 45, 205 55 C 210 65, 208 75, 200 85 C 195 95, 190 105, 185 115 C 180 125, 175 135, 168 145 C 160 155, 150 162, 140 168 C 130 172, 120 175, 110 175 C 100 175, 90 172, 82 168 C 75 165, 68 160, 62 152 C 55 145, 50 138, 48 130 C 45 122, 42 115, 40 105 C 38 95, 36 85, 35 75 C 34 65, 35 55, 38 48 C 42 40, 48 32, 60 25 Z"
+          d="M 25 10 C 32 8, 38 7, 44 8 C 50 9, 56 10, 62 11 C 68 12, 74 14, 80 16 C 85 18, 90 22, 92 26 C 94 30, 93 34, 90 38 C 87 42, 84 46, 80 50 C 76 54, 72 58, 68 62 C 64 65, 58 67, 52 68 C 46 69, 40 68, 34 66 C 28 64, 22 60, 18 55 C 14 50, 11 45, 9 40 C 7 35, 6 30, 6 25 C 6 20, 8 16, 12 14 C 16 12, 20 11, 25 10 Z"
           fill="url(#zellige)"
         />
 
         {/* Points des villes */}
         {villes.map((ville) => (
           <g key={ville.name}>
-            <circle
-              cx={ville.x}
-              cy={ville.y}
-              r="5"
-              fill="#FFFFFF"
-              stroke="#C45C26"
-              strokeWidth="2"
-              className="animate-pulse"
-            />
-            <circle cx={ville.x} cy={ville.y} r="2" fill="#C45C26" />
+            <circle cx={ville.x} cy={ville.y} r="2" fill="#FFFFFF" stroke="#C45C26" strokeWidth="1" />
+            <circle cx={ville.x} cy={ville.y} r="0.8" fill="#C45C26" />
             <text
               x={ville.x}
-              y={ville.y - 10}
+              y={ville.y - 4}
               textAnchor="middle"
-              fontSize="8"
+              fontSize="3"
               fontWeight="600"
               fill="#1A1A1A"
-              style={{ fontFamily: 'Inter, sans-serif' }}
             >
               {ville.name}
             </text>
@@ -163,8 +108,12 @@ function MarocMap() {
         ))}
 
         {/* Labels nord/sud */}
-        <text x="110" y="12" textAnchor="middle" fontSize="9" fill="#6B6B6B" fontWeight="500">NORD — Méditerranée</text>
-        <text x="110" y="178" textAnchor="middle" fontSize="9" fill="#6B6B6B" fontWeight="500">SUD — Sahara</text>
+        <text x="50" y="5" textAnchor="middle" fontSize="3" fill="#6B6B6B" fontWeight="500">
+          NORD — Méditerranée
+        </text>
+        <text x="50" y="69" textAnchor="middle" fontSize="3" fill="#6B6B6B" fontWeight="500">
+          SUD — Sahara
+        </text>
       </svg>
     </div>
   );
@@ -245,7 +194,40 @@ export default function HomePage() {
             </div>
             {/* Illustration */}
             <div className="order-1 lg:order-2">
-              <HeroIllustration />
+              <div className="relative w-full max-w-lg mx-auto lg:mx-0">
+                <div className="absolute inset-0 bg-gradient-to-br from-[#E8D5C4] via-[#F5E6D3] to-[#FFF8F0] rounded-3xl transform rotate-2" />
+                <div className="relative z-10 rounded-2xl overflow-hidden shadow-2xl border-4 border-white/50">
+                  <img
+                    src={IMG_MOSQUEE}
+                    alt="Mosquée Hassan II à Casablanca"
+                    className="object-cover w-full"
+                    style={{ maxHeight: '450px' }}
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#C45C26]/20 to-transparent" />
+                </div>
+                {/* Badge flottant : Colis livrés */}
+                <div className="absolute -bottom-4 -left-4 z-20 bg-white rounded-xl shadow-lg px-4 py-3 flex items-center space-x-3 border border-[#E5DDD4]">
+                  <div className="w-10 h-10 bg-[#C45C26]/10 rounded-full flex items-center justify-center">
+                    <Package className="w-5 h-5 text-[#C45C26]" />
+                  </div>
+                  <div>
+                    <p className="text-[#1A1A1A] font-bold text-sm">10 000+</p>
+                    <p className="text-[#6B6B6B] text-xs">Colis livrés</p>
+                  </div>
+                </div>
+                {/* Badge flottant : Note */}
+                <div className="absolute -top-3 -right-3 z-20 bg-white rounded-xl shadow-lg px-4 py-3 flex items-center space-x-2 border border-[#E5DDD4]">
+                  <div className="flex">
+                    {[1,2,3,4,5].map((i) => (
+                      <Star key={i} className="w-4 h-4 text-amber-400 fill-amber-400" />
+                    ))}
+                  </div>
+                  <div>
+                    <p className="text-[#1A1A1A] font-bold text-sm">4.8/5</p>
+                    <p className="text-[#6B6B6B] text-xs">Note moyenne</p>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -450,7 +432,7 @@ export default function HomePage() {
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
             {[
               { step: '1', icon: User, title: 'Créez votre compte', desc: '2 minutes. Une seule adresse à mémoriser.' },
-              { step: '2', icon: CheckCircle2, title: 'Calculez \u0026 payez', desc: 'Prix au kilo affiché instantanément. CB ou PayPal.' },
+              { step: '2', icon: CheckCircle2, title: 'Calculez & payez', desc: 'Prix au kilo affiché instantanément. CB ou PayPal.' },
               { step: '3', icon: Truck, title: 'On vient chercher', desc: 'Enlèvement à domicile ou dépôt proche de chez vous.' },
               { step: '4', icon: Clock, title: 'Vous suivez tout', desc: 'Notifications en temps réel jusqu\'à la livraison.' },
             ].map((item) => (
@@ -543,12 +525,11 @@ export default function HomePage() {
               </div>
             </div>
             <div className="hidden lg:block">
-              <Image
-                src="https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=600&h=450&fit=crop&q=80"
+              <img
+                src={IMG_LIVRAISON}
                 alt="Colis en cours de livraison au Maroc"
-                width={600}
-                height={450}
-                className="rounded-2xl shadow-xl object-cover"
+                className="rounded-2xl shadow-xl object-cover w-full"
+                style={{ maxHeight: '400px' }}
               />
             </div>
           </div>
